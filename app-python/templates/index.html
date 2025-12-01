@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Learning App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="main-logo">
+            </div>
+            <h1>Welcome to the Student Learning App</h1>
+        </header>
+        <form action="/search" method="post">
+            <select name="query">
+                <option value="">Select a course</option>
+                {% for course in courses.keys() %}
+                    <option value="{{ course }}">{{ course }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+            <a href="/clear" class="clear-button">Clear Filter</a>
+        </form>
+        <h2>Available Courses</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course, links in courses.items() %}
+                    {% for link in links %}
+                        <tr>
+                            <td>{{ course }}</td>
+                            <td><a href="{{ link }}" target="_blank">Course Link</a></td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Add a New Course</h2>
+        <form action="/add_course" method="post">
+            <input type="text" name="course_name" placeholder="Course Name" required>
+            <input type="url" name="course_link" placeholder="Course Link" required>
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+</body>
+</html>
