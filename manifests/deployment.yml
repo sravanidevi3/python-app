@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: sravanidevipythonapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sravanidevipythonapp
+  template:
+    metadata:
+      labels:
+        app: sravanidevipythonapp 
+    spec:
+      containers:
+        - name: sravanidevipythonapp 
+          image: mycontainerapp.azurecr.io/sravanidevipythonapp
+          ports:
+          - containerPort: 8000
